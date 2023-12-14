@@ -56,15 +56,18 @@ more.
    ```bash
    php artisan key:generate
 
-3. Run Database Migration:
-   ```bash
-   php artisan migrate
 
 ## Run the application
 
-In your project directory, inside the terminal, write the following commands:
+1. In your project directory, inside the terminal, write the following commands:
    ````
    docker-compose up -d
+   ````
+2. Run Database Migration:
+   ```bash
+   php artisan migrate
+3. Start the development server:
+   ````
    php artisan serve
    ````
 
