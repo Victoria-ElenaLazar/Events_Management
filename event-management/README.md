@@ -1,66 +1,252 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Events Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a Laravel-based API for managing events, providing CRUD operations, email notifications, security features, and
+more.
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Features](#features)
+- [Requirements](#requirements)
+- [Getting Started](#getting-started)
+    - [Docker Setup](#docker-setup)
+    - [Configuration](#configuration)
+    - [Running the Application](#running-the-application)
+- [API Endpoints](#api-endpoints)
+    - [Authentication](#authentication)
+    - [Query Parameters and Relationships](#query-parameters-and-relationships)
+- [Queues and Email Notifications](#queues-and-email-notifications)
+- [Security Practices](#security-practices)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- CRUD operations for managing events.
+- Email notifications for event reminders sent 24 hours before the event.
+- Docker setup for easy development and deployment.
+- Policies and security measures for data protection.
+- Throttling to prevent abuse and ensure API stability.
+- Utilization of Laravel Traits for code organization.
 
-## Learning Laravel
+## Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
+- PHP 8.0 and above
+- [Postman](https://web.postman.co/) or [Insomnia](https://insomnia.rest/)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Getting Started
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Docker Setup
 
-## Laravel Sponsors
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Victoria-ElenaLazar/Events_Management/tree/main
+2. Navigate to the project directory:
+   ```bash
+   cd event-management
+3. Create a copy of the .env.example file:
+   ```bash
+   cp .env.example .env
+4. Configure the .env file with your database and email settings.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Configuration
 
-### Premium Partners
+1. Install dependencies:
+   ```bash
+   composer install
+2. Generate application key:
+   ```bash
+   php artisan key:generate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. Run Database Migration:
+   ```bash
+   php artisan migrate
 
-## Contributing
+## Run the application
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+In your project directory, inside the terminal, write the following commands:
+   ````
+   docker-compose up -d
+   php artisan serve
+   ````
 
-## Code of Conduct
+Open the http://localhost in a testing API tool, such as [Postman](https://web.postman.co/)
+or [Insomnia](https://insomnia.rest/)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## API Endpoints
 
-## Security Vulnerabilities
+**1. Get a list with all events**
+   ````
+   GET /Api/events
+   ````
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Response:**
+   ````
+   {
+	"data": [
+		{
+			"id": 201,
+			"name": "Event Name",
+			"description": "Event Description",
+			"start_time": "2023-01-01 10:00:00",
+			"end_time": "2023-01-01 12:00:00"
+		},
+   ````
+**2. Create a new event**
+   ````
+   POST /Api/events
 
-## License
+   ````
+**Request:**
+   ````
+{
+    "name": "Event Name comes here",
+    "description": "Event Description",
+    "start_time": "2023-01-01 10:00:00",
+    "end_time": "2023-01-01 12:00:00"
+}
+   ````
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Response:**
+
+   ````
+   {
+	"data": {
+		"id": 202,
+		"name": "Event Name comes here",
+		"description": "Event Description",
+		"start_time": "2023-01-01 10:00:00",
+		"end_time": "2023-01-01 12:00:00"
+	}
+}
+   ````
+
+### Authentication
+The API supports token-based authentication. Users can obtain an access token by logging in, and they can log out to invalidate the token.
+
+**1. Login**
+   ````
+   POST /Api/login
+   ````
+**Request:**
+   ````
+   {
+  "email": "user@example.com",
+  "password": "userpassword"
+}
+   ````
+**Response:**
+
+   ````
+   {
+	"token": "7|gN3aWlpSW0IXigu0SRBSVIenig4V2RA22bJ4qCZZ7779e3cc"
+}
+   ````
+
+### Query Parameters and Relationships
+The API supports query parameters for including related data in the responses.
+
+Supported Parameters
+include: Use the include parameter to specify related resources. You can include multiple relationships using a comma-separated list. For example:
+   ````
+  GET /Api/events?include=user,attendee.user,attendees
+   ````
+**Response:**
+   ````
+   {
+	"data": [
+		{
+			"id": 70,
+			"name": "Eum eaque consequatur.",
+			"description": "Dolores ab magni facere. Facere consequuntur dolorem facere unde eum. Quam nemo similique eum voluptas aliquam est. Consequuntur dolorem quae et cum.",
+			"start_time": "2023-12-31 18:14:26",
+			"end_time": "2024-01-30 06:57:43",
+			"user": {
+				"id": 958,
+				"name": "Brennan Murphy MD",
+				"email": "giovanni91@example.net",
+				"email_verified_at": "2023-12-12T09:53:05.000000Z",
+				"created_at": "2023-12-12T09:53:10.000000Z",
+				"updated_at": "2023-12-12T09:53:10.000000Z"
+			},
+			"attendees": [
+				{
+					"id": 20,
+					"user_id": 12,
+					"event_id": 70,
+					"created_at": "2023-12-12T09:53:12.000000Z",
+					"updated_at": "2023-12-12T09:53:12.000000Z"
+				},
+				{
+					"id": 26,
+					"user_id": 15,
+					"event_id": 70,
+					"created_at": "2023-12-12T09:53:12.000000Z",
+					"updated_at": "2023-12-12T09:53:12.000000Z"
+				},
+				{
+					"id": 34,
+					"user_id": 19,
+					"event_id": 70,
+					"created_at": "2023-12-12T09:53:12.000000Z",
+					"updated_at": "2023-12-12T09:53:12.000000Z"
+				},
+				{
+					"id": 72,
+					"user_id": 39,
+					"event_id": 70,
+					"created_at": "2023-12-12T09:53:12.000000Z",
+					"updated_at": "2023-12-12T09:53:12.000000Z"
+				},
+				{
+					"id": 144,
+					"user_id": 73,
+					"event_id": 70,
+					"created_at": "2023-12-12T09:53:12.000000Z",
+					"updated_at": "2023-12-12T09:53:12.000000Z"
+				},
+				{
+					"id": 624,
+					"user_id": 314,
+					"event_id": 70,
+					"created_at": "2023-12-12T09:53:15.000000Z",
+					"updated_at": "2023-12-12T09:53:15.000000Z"
+				},
+
+   ````
+
+## Queues and Email Notifications
+To handle email notifications, the application utilizes Laravel queues. Follow these steps to set up and run the necessary workers:
+
+**1. Create queue table:**
+   ````
+   php artisan queue:table
+   ````
+
+**2. Run Migrations:**
+   ````
+   php artisan migrate
+   ````
+
+**3. Send Event Reminders**
+   ````
+   php artisan app:send-event-reminders
+   ````
+**4. Start Queue Worker:**
+   ````
+   app php artisan queue:work
+   ````
+This will continuously process jobs from the queue.
+
+Additionally, for email configuration, update your .env file with the appropriate mail settings, and make sure to configure config/mail.php. Set the mailer to Mailhog for local testing.
+
+## Security Practices
+The application implements various security measures to protect user data and ensure stable functionality:
+
+**Throttling:** Implemented to prevent abuse and ensure API stability.
+
+**User Permissions:** Users can only create and delete events they have created.
+
+**Attendee Permissions:** Attendees can only unattend events they are attending.
+
+**Authentication and Authorization:** Token-based authentication and authorization for protected routes.
+
+**Input Validation:** Ensure proper input validation to protect against malicious data.
