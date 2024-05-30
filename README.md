@@ -16,6 +16,7 @@ more.
     - [Query Parameters and Relationships](#query-parameters-and-relationships)
 - [Queues and Email Notifications](#queues-and-email-notifications)
 - [Security Practices](#security-practices)
+- [Project Demo](#project-demo)
 
 ## Features
 
@@ -253,3 +254,13 @@ The application implements various security measures to protect user data and en
 **Authentication and Authorization:** Token-based authentication and authorization for protected routes.
 
 **Input Validation:** Ensure proper input validation to protect against malicious data.
+
+## Project Demo
+
+
+[Watch the video](public/event-management.mov
+)
+
+Or [download the video](public/event-management.mov
+) to watch it.
+
