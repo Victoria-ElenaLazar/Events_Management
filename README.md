@@ -258,9 +258,9 @@ The application implements various security measures to protect user data and en
 ## Project Demo
 
 
-[Watch the video](public/event-management.mov
+[Watch the video](event-management/public/event-management.mov
 )
 
-Or [download the video](public/event-management.mov
+Or [download the video](event-management/public/event-management.mov
 ) to watch it.
 
